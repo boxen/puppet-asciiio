@@ -10,7 +10,7 @@ class asciiio(
   include boxen::config
 
   exec { 'install asciiio':
-    command => "curl -O asciiio ${url} && chmod a+x asciiio",
+    command => "curl -O ${url} && chmod a+x asciiio",
     creates => "${boxen::config::bindir}/asciiio",
     cwd     => $boxen::config::bindir,
   }
