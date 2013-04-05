@@ -4,11 +4,14 @@
 #
 #   include asciiio
 
-class asciiio {
+class asciiio(
+  $url = 'https://raw.github.com/sickill/ascii.io-cli/master/bin/asciiio'
+) {
   include boxen::config
 
-  file { "${boxen::config::bindir}/asciiio":
-    mode   => '0755',
-    source => 'https://raw.github.com/sickill/ascii.io-cli/master/bin/asciiio'
+  exec { 'install asciiio':
+    command => "curl -O asciiio ${url} && chmod a+x asciiio",
+    creates => "${boxen::config::bindir}/asciiio",
+    cwd     => $boxen::config::bindir,
   }
 }

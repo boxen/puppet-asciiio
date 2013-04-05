@@ -4,9 +4,12 @@ describe "asciiio" do
   let(:facts) { default_test_facts }
 
   it do
-    should contain_file("/test/boxen/bin/asciiio").with({
-      :mode   => "0755",
-      :source => "https://raw.github.com/sickill/ascii.io-cli/master/bin/asciiio"
+    should include_class("boxen::config")
+
+    should contain_exec("install asciiio").with({
+      :command => "curl -O asciiio https://raw.github.com/sickill/ascii.io-cli/master/bin/asciiio && chmod a+x asciiio",
+      :creates => "/test/boxen/bin/asciiio",
+      :cwd     => "/test/boxen/bin"
     })
   end
 end
